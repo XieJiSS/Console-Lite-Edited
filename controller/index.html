@@ -87,25 +87,25 @@
           </div>
         </div>
         <div class="actions">
-          <div class="action" @click="navigate('home')">
+          <div class="action" title="Home" @click="navigate('home')">
             <i class="material-icons">home</i>
           </div>
-          <div class="action" @click="navigate('seats')">
+          <div class="action" title="Seat" @click="navigate('seats')">
             <i class="material-icons">event_seat</i>
           </div>
-          <div class="action" @click="navigate('lists')">
+          <div class="action" title="Debate" @click="navigate('lists')">
             <i class="material-icons">record_voice_over</i>
           </div>
-          <div class="action" @click="navigate('timers')">
+          <div class="action" title="Timer" @click="navigate('timers')">
             <i class="material-icons">timer</i>
           </div>
-          <div class="action" @click="navigate('files')">
+          <div class="action" title="File" @click="navigate('files')">
             <i class="material-icons">folder</i>
           </div>
-          <div class="action" @click="navigate('votes')">
+          <div class="action" title="Vote" @click="navigate('votes')">
             <i class="material-icons">thumbs_up_down</i>
           </div>
-          <div class="action" @click="clearProjector" v-if="altHold && projOn">
+          <div class="action" title="Cast" @click="clearProjector" v-if="altHold && projOn">
             <i class="material-icons">layers_clear</i>
           </div>
           <div class="action" @click="toggleProjector" v-else>
@@ -132,11 +132,11 @@
 
     <div class="startup" :class="{ ready: ready }" v-show="!picker" transition="opacity">
       <div class="brand">
-        Console Lite
+        Console Lite - Edited
       </div>
       <div class="selector">
         <div class="loading-hint" transition="opacity" v-show="loading">
-          喵喵喵...
+          Improved by JieJiSS. Loading...
         </div>
         <div class="selector-item" @click="connectBackend">
           <i class="material-icons">settings_ethernet</i>连接到会话...
@@ -221,5 +221,30 @@
         </div>
       </div>
     </div>
+    <div id="sound" style="display: none;"></div>
   </body>
+  <script>
+  let alerted = false;
+  setInterval(() => {
+    time = Number((document.querySelector(".timer-left .timer-second") || {}).innerText || -1);
+    total = Number((document.querySelector(".timer-value .timer-second") || {}).innerText || -1);
+    let alertTime = total > 60 ? 30 : (total > 10 ? 10 : 1);
+    if (time > alertTime) {
+        document.querySelector(".timer-left .timer-second").style.color = "";
+        alerted = false;
+        $$("sound").innerHTML = "";
+    } else if (time == alertTime && !alerted) {
+      $$("sound").innerHTML = '<audio autoplay="autoplay"><source src="notify.ogg"'
+        + 'type="audio/ogg" /></audio>';
+      alerted = true;
+      document.querySelector(".timer-left .timer-second").style.color = "red";
+    } else if(time > 0) {
+      document.querySelector(".timer-left .timer-second").style.color = "red";
+      alerted = true;
+    }
+  }, 200);
+  function $$(id) {
+    return document.getElementById(id);
+  }
+  </script>
 </html>

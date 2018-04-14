@@ -13,6 +13,7 @@ const GlobalConnection = require('./connection/global');
 const ConferenceConnection = require('./connection/conference');
 
 const util = require('../shared/util.js');
+const node_util = require("util");
 
 require('../shared/components/timer');
 require('../shared/components/timer-input');
@@ -144,6 +145,9 @@ const desc = {
       this.backendIDKey = serverConfig.idkey;
       this.backendUrl = serverConfig.url;
 
+      window.info = () => console.log(this.backendUrl, this.backendIDKey, this.backendPasskey);
+      window.info();
+
       const socket = io(serverConfig.url, {
         query: `console-passkey=${serverConfig.passkey}`,
       });
@@ -200,7 +204,9 @@ const desc = {
     createBackend() {
       ipcRenderer.once('serverCallback', (event, data) => {
         if(data.error) {
-          alert('启动失败! 请检查是否已经启动另一个 Console Lite 实例');
+          alert(`启动失败! 请检查是否已经启动另一个 Console Lite 实例。\n${
+            node_util.format(data.error)
+          }`);
           console.error(data);
           this.loading = false;
           return;

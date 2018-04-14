@@ -1,5 +1,6 @@
 const backend = require('./backend/main');
 const socket = require('./socket.js');
+const config = require('../../config.json');
 
 const polo = require('polo');
 const poloRepo = polo();
@@ -12,7 +13,7 @@ function shutdown(cb) {
   return backend.shutdown(cb);
 }
 
-module.exports = (cb, port = 4928) => {
+module.exports = (cb, port = 3066) => {
   // Initial backend object
   backend.init((err) => {
     if(err) {
@@ -22,8 +23,8 @@ module.exports = (cb, port = 4928) => {
 
     console.log('Backend initialization completed');
 
-    const passkey = crypto.randomBytes(4).toString('hex');
-    const idkey = crypto.randomBytes(4).toString('hex').toUpperCase();
+    const passkey = config.password || crypto.randomBytes(4).toString('hex');
+    const idkey = config.id || crypto.randomBytes(4).toString('hex').toUpperCase();
 
     // Setup sockets
     const server = http.createServer((req, res) => {

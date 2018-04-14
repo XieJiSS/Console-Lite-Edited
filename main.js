@@ -30,6 +30,7 @@ const projectorOpt = {
   height: 600,
   frame: false,
   autoHideMenuBar: true,
+  show: false,
   icon: path.join(__dirname, 'images', 'icon_256x256.png'),
 };
 
@@ -59,7 +60,38 @@ function initProjector() {
   // Ensures that previous windows are closed
   if(projector) projector.close();
 
-  projector = new BrowserWindow(projectorOpt);
+  const { screen } = require('electron');
+  const displays = screen.getAllDisplays();
+  let external;
+
+  if(displays.length <= 1) {
+    projector = new BrowserWindow(projectorOpt);
+  } else {
+    for(let i = 0; i < displays.length; i++) {
+      if(displays[i].bounds.x != 0 || displays[i].bounds.y != 0) {
+        external = displays[i];
+        console.log(`[Proj] external display found, id=${external.id}`);
+        break;
+      }
+    }
+    if(external) {
+      projectorOpt.x = external.bounds.x;
+      projectorOpt.y = external.bounds.y;
+      projector = new BrowserWindow(projectorOpt);
+    }
+  }
+
+  projector.webContents.on('dom-ready', ev => {
+    projector.show();
+    if(external) {
+      console.log(`[Proj] maximizing projector window, id=${external.id}`);
+      projector.setFullScreen(true);
+      globalShortcut.register('ESC', () => {
+        console.log(`[Proj] quitting FullScreen mode, id=${external.id}`);
+        projector.setFullScreen(false);
+      });
+    }
+  });
   projector.loadURL(`file://${__dirname}/projector/index.html`);
   util.applyProjectorMenu(projector);
 
@@ -124,7 +156,7 @@ let shutdown;
 
 ipcMain.on('startServer', (event) => {
   if(serverStarted) {
-    event.sender.send('serverCallback', { url: 'http://localhost:4928', passkey, idkey });
+    event.sender.send('serverCallback', { url: 'http://localhost:3066', passkey, idkey });
     return;
   }
 
@@ -139,7 +171,7 @@ ipcMain.on('startServer', (event) => {
     passkey = pk;
     idkey = ik;
     shutdown = sd;
-    event.sender.send('serverCallback', { url: 'http://localhost:4928', passkey, idkey });
+    event.sender.send('serverCallback', { url: 'http://localhost:3066', passkey, idkey });
   });
 });
 
