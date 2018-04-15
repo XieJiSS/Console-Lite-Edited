@@ -26,3 +26,11 @@ body {
 
   -webkit-app-region: drag;
 }
+
+.list-drag {
+  cursor: text;
+}
+
+.list-drag:active {
+  cursor: move;
+}

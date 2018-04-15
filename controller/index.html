@@ -105,10 +105,10 @@
           <div class="action" title="Vote" @click="navigate('votes')">
             <i class="material-icons">thumbs_up_down</i>
           </div>
-          <div class="action" title="Cast" @click="clearProjector" v-if="altHold && projOn">
+          <div class="action" @click="clearProjector" v-if="altHold && projOn">
             <i class="material-icons">layers_clear</i>
           </div>
-          <div class="action" @click="toggleProjector" v-else>
+          <div class="action" title="Cast" @click="toggleProjector" v-else>
             <i class="material-icons" v-show="projOn">cast_connected</i>
             <i class="material-icons" v-else>cast</i>
           </div>
@@ -136,7 +136,7 @@
       </div>
       <div class="selector">
         <div class="loading-hint" transition="opacity" v-show="loading">
-          Improved by JieJiSS. Loading...
+          Edited by JieJiSS. Loading...
         </div>
         <div class="selector-item" @click="connectBackend">
           <i class="material-icons">settings_ethernet</i>连接到会话...

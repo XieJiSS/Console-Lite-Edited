@@ -26,6 +26,8 @@ const controllerOpt = {
 };
 
 const projectorOpt = {
+  x: 0,
+  y: 0,
   width: 800,
   height: 600,
   frame: false,
@@ -65,6 +67,8 @@ function initProjector() {
   let external;
 
   if(displays.length <= 1) {
+    projectorOpt.x = 0;
+    projectorOpt.y = 0;
     projector = new BrowserWindow(projectorOpt);
   } else {
     for(let i = 0; i < displays.length; i++) {

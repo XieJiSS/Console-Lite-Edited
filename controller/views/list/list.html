@@ -36,20 +36,20 @@
     <div class="list-actions">
       <template v-if="authorized">
         <button class="light" @click="editTimer">
-          <i class="material-icons">edit</i>
+          <i class="material-icons" title="Edit">edit</i>
         </button>
         <button class="light" @click="stop" v-show="list.timerCurrent && list.timerCurrent.active">
-          <i class="material-icons">pause</i>
+          <i class="material-icons" title="Pause">pause</i>
         </button>
         <button class="light" @click="start" v-show="list.ptr < list.seats.length && list.timerCurrent && list.timerCurrent.left > 0 && !list.timerCurrent.active">
-          <i class="material-icons">play_arrow</i>
+          <i class="material-icons" title="Start">play_arrow</i>
         </button>
         <button class="light" @click="next" v-show="list.ptr < list.seats.length">
-          <i class="material-icons">skip_next</i>
+          <i class="material-icons" title="Next Speaker">skip_next</i>
         </button>
       </template>
       <button class="light" @click="project">
-        <i class="material-icons">cast</i>
+        <i class="material-icons" title="Update Cast">cast</i>
       </button>
     </div>
   </div>
@@ -90,7 +90,7 @@
           </div>
         </div>
       </div>
-      <div class="list-item-content" v-else>
+      <div class="list-item-content list-drag" title="{{ seat.name }}" v-else>
         {{ seat.name }}
       </div>
     </div>

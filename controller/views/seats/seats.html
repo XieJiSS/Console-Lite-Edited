@@ -9,7 +9,7 @@
   <div class="seats list">
     <div class="seat list-item" v-for="seat of seats" track-by="$index" :class="{ clickable: authorized, bold: seat.present }" @click="toggleStatus(seat)">
       <div class="list-item-indicator"></div>
-      <div class="list-item-content">{{ seat.name }}</div>
+      <div class="list-item-content" title="{{ seat.name }}">{{ seat.name }}</div>
     </div>
     <div class="empty-hint" v-if="authorized">请点击编辑添加席位</div>
     <div class="empty-hint" v-else>席位列表为空</div>
