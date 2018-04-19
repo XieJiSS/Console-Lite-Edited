@@ -28,7 +28,6 @@
         :search-input="searchInput"
         :alt-hold="altHold"
         :authorized="authorized"
-        :title="title"
 
         @navigate="navigate"
 
@@ -224,25 +223,64 @@
     <div id="sound" style="display: none;"></div>
   </body>
   <script>
+  function dom$(query) {
+    return document.querySelector(query);
+  }
+
+  function getTimerTime(node) {
+    if(!node) return 0;
+
+    let minuteNode = node.querySelector(".timer-minute");
+    let secondNode = node.querySelector(".timer-second");
+    let seconds;
+    if(
+      !minuteNode ||
+      minuteNode.style.display === "none" ||
+      minuteNode.innerText === "0"
+    ) {
+      seconds = 0;
+    } else {
+      seconds = Number(minuteNode.innerText) * 60;
+    }
+
+    if(
+      !secondNode ||
+      secondNode.innerText === "0"
+    ) {
+      seconds = 0;
+    } else if (secondNode.innerText[0] === "0") {
+      seconds += Number(secondNode.innerText[1]);
+    } else {
+      seconds += Number(secondNode.innerText);
+    }
+
+    return seconds;
+  }
+
   let alerted = false;
   setInterval(() => {
-    time = Number((document.querySelector(".timer-left .timer-second") || {}).innerText || -1);
-    total = Number((document.querySelector(".timer-value .timer-second") || {}).innerText || -1);
-    let alertTime = total > 60 ? 30 : (total > 10 ? 10 : 1);
-    if (time > alertTime) {
-        document.querySelector(".timer-left .timer-second").style.color = "";
+    timeLeft = getTimerTime(dom$(".timer-left"));
+    totalTime = getTimerTime(dom$(".timer-value"));
+    
+    let timerSecondNode = dom$(".timer-left .timer-second");
+    if(!timerSecondNode) return;
+
+    let alertTime = totalTime > 60 ? 30 : (totalTime > 10 ? 10 : -1);
+    if (timeLeft > alertTime) {
+        timerSecondNode.style.color = "";
         alerted = false;
         $$("sound").innerHTML = "";
-    } else if (time == alertTime && !alerted) {
+    } else if (timeLeft == alertTime && !alerted) {
       $$("sound").innerHTML = '<audio autoplay="autoplay"><source src="notify.ogg"'
         + 'type="audio/ogg" /></audio>';
       alerted = true;
-      document.querySelector(".timer-left .timer-second").style.color = "red";
-    } else if(time > 0) {
-      document.querySelector(".timer-left .timer-second").style.color = "red";
+      timerSecondNode.style.color = "red";
+    } else if(timeLeft > 0 && timeLeft <= alertTime) {
+      timerSecondNode.style.color = "red";
       alerted = true;
     }
   }, 200);
+  
   function $$(id) {
     return document.getElementById(id);
   }
