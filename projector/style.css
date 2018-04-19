@@ -76,11 +76,12 @@ body {
 
 .motion-title :hover {
   font-size: 150%;
-  line-height: 100%;
+  line-height: 120%;
   text-overflow: initial;
   overflow: initial;
   white-space: initial;
   background-color: #FFF;
+  z-index: 2;
 }
 
 .bottom-title.small {
