@@ -7,7 +7,7 @@ class Node {
   put(string) {
     if(string.length === 0) return this;
 
-    const i = string.charCodeAt(0) - 97;
+    const i = string.toLowerCase().charCodeAt(0) - 97;
     if(i < 0 || i > 25) return null;
 
     if(!this.children[i]) this.children[i] = new Node();
@@ -16,8 +16,7 @@ class Node {
 
   get(string) {
     if(string.length === 0) return this;
-
-    const i = string.charCodeAt(0) - 97;
+    const i = string.toLowerCase().charCodeAt(0) - 97;
     if(i < 0 || i > 25) return null;
     else if(!this.children[i]) return null;
     else return this.children[i].get(string.substring(1));
