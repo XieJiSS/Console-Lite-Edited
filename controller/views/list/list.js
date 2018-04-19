@@ -60,13 +60,8 @@ const ListView = Vue.extend({
     },
 
     performAC(text = null) {
-      console.log(text);
-      if(text) {
-        this.editInput = text;
-        console.log(this);
-      } else {
-        this.editInput = this.acList[this.acIndex];
-      }
+      if(text) this.editInput = text;
+      else this.editInput = this.acList[this.acIndex];
       this.updateAC();
       this.acInput.focus();
     },
