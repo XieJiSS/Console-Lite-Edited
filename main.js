@@ -97,8 +97,10 @@ function initProjector() {
     }
   }
 
+  projector.hide();
+
   projector.webContents.on('dom-ready', ev => {
-    projector.webContents.openDevTools();
+    // projector.webContents.openDevTools();
     projector.show();
     if(external) {
       console.log(`[Proj] maximizing projector window, id=${external.id}`);

@@ -99,12 +99,24 @@ body {
   justify-content: center;
 }
 
-.brand {
-  font-size: 48px;
-  font-weight: 100;
-  color: black;
+@media only screen and (max-width: 1200px) {
+  .brand {
+    font-size: calc(3vw + 24px);
+    font-weight: 100;
+    color: black;
 
-  opacity: 0.3;
+    opacity: 0.3;
+  }
+}
+
+@media only screen and (min-width: 1201px) {
+  .brand {
+    font-size: 5vw;
+    font-weight: 100;
+    color: black;
+
+    opacity: 0.3;
+  }
 }
 
 .counter-group {
