@@ -764,7 +764,9 @@ const desc = {
     },
 
     updateListTotal(list, time) {
-      this.updateTimer(list.timerTotal.id, time);
+      try {
+        this.updateTimer(list.timerTotal.id, time);
+      } catch (e) {}
     },
 
     updateListCurrent(list, time) {
