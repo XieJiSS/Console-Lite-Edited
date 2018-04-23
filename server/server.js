@@ -1,6 +1,6 @@
 const backend = require('./backend/main');
 const socket = require('./socket.js');
-const config = require('../../config.json');
+const config = require('../config.json');
 
 const polo = require('polo');
 const poloRepo = polo();

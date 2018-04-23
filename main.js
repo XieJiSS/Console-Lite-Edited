@@ -1,5 +1,7 @@
+/// <reference path="typings/electron.d.ts" />
+
 const electron = require('electron');
-const { ipcMain, app, protocol, globalShortcut, BrowserWindow } = electron;
+const { powerSaveBlocker, ipcMain, app, protocol, globalShortcut, BrowserWindow } = electron;
 const path = require('path');
 const tar = require('tar');
 const fs = require('fs');
@@ -10,6 +12,8 @@ const server = require('./server/server');
 const util = require('./util');
 
 const name = 'Console Lite';
+
+let PSB_ID;
 
 app.setName(name);
 
@@ -50,6 +54,14 @@ function initController() {
   controller = new BrowserWindow(controllerOpt);
   util.applyControllerMenu(controller);
   controller.loadURL(`file://${__dirname}/controller/index.html`);
+  if(PSB_ID !== undefined) {
+    powerSaveBlocker.stop(PSB_ID);
+    PSB_ID = undefined;
+  }
+  PSB_ID = powerSaveBlocker.start("prevent-display-sleep");
+  if(!powerSaveBlocker.isStarted(PSB_ID)) {
+    console.log("Failed to start powerSafeBlocker");
+  }
   controller.on('closed', () => {
     controller = null;
 
@@ -143,8 +155,11 @@ app.on('ready', () => {
 });
 
 app.on('window-all-closed', () => {
-  if(process.platform !== 'darwin')
+  if(process.platform !== 'darwin') {
+    if(PSB_ID !== undefined)
+      powerSaveBlocker.stop(PSB_ID);
     app.quit();
+  }
 });
 
 app.on('activate', () => {

@@ -6,7 +6,7 @@ const namespaces = new Map();
 let passkey;
 
 function add(nsid) {
-  console.log(`Adding namespace: ${nsid}`);
+  console.log(`[SERVER] Adding namespace: ${nsid}`);
   const nsp = io.of(`/${nsid}`);
   const conf = backend.get(nsid);
 
@@ -315,6 +315,7 @@ function init(app, idk, psk) {
       backend.add(data.name, (err, id) => {
         if(err) return void socket.emit('create', { ok: false, error: err });
 
+        console.log("[SERVER] New Connection Established");
         add(id);
         return void socket.emit('create', { ok: true, id, name: data.name });
       });
