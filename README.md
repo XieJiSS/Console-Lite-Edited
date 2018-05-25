@@ -5,7 +5,10 @@
 [![David](https://img.shields.io/david/CircuitCoder/Console-Lite.svg?style=flat-square)](https://david-dm.org/CircuitCoder/Console-Lite)
 [![David Dev](https://img.shields.io/david/dev/CircuitCoder/Console-Lite.svg?style=flat-square)](https://david-dm.org/CircuitCoder/Console-Lite)
 
-可以，这很现代化
+A next-generation MUN hosting software.
+
+## 下载
+[Download](https://jiejiss.xyz/cle)
 
 ## 开发
 在 Clone 项目过后，请使用以下指令安装依赖:
@@ -14,6 +17,8 @@
 npm install
 npm run rebuildNative # Rebuild native modules for Electron
 ```
+
+注意：这一步需要`Node_ABI === ELECTRON_ABI`
 
 启动应用：
 
@@ -32,7 +37,7 @@ npm run server
 ```bash
 npm prune --producation # 删除开发依赖
 npm install electron-packager # 重新安装打包器
-npm install electron # 重新安装Electron
+npm install electron # 重新安装Electron。一些module使用了`process.EventEmitter [deprecated]`，因此可能需要手动修改。
 npm run pack
 npm install # 重新安装开发依赖
 ```
