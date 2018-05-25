@@ -184,7 +184,7 @@ let shutdown;
 
 ipcMain.on('startServer', (event) => {
   if(serverStarted) {
-    event.sender.send('serverCallback', { url: `http://${ IPV4 || "localhost" }:3066`, passkey, idkey });
+    event.sender.send('serverCallback', { url: `http://${ IPV4 || 'localhost' }:3066`, passkey, idkey });
     return;
   }
 
@@ -199,7 +199,7 @@ ipcMain.on('startServer', (event) => {
     passkey = pk;
     idkey = ik;
     shutdown = sd;
-    event.sender.send('serverCallback', { url: `http://${ IPV4 || "localhost" }:3066`, passkey, idkey });
+    event.sender.send('serverCallback', { url: `http://${ IPV4 || 'localhost' }:3066`, passkey, idkey });
   });
 });
 
