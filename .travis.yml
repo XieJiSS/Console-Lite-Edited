@@ -13,7 +13,7 @@ addons:
     - clang
 install:
 - export CXX="clang++"
-- npm install
+- npm install --production
 cache:
   directories:
   - node_modules
@@ -30,7 +30,7 @@ before_script:
 - git lfs pull
 script:
 - npm run rebuildNative
-- yarn global add electron@1.4.3 && yarn global add electron-builder@20.15.1 && npm install --production && yarn build
+- yarn global add electron@1.4.3 && yarn global add electron-builder@20.15.1 && yarn build
 before_cache:
 - rm -rf $HOME/.cache/electron-builder/wine
 branches:
