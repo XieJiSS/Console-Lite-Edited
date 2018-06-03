@@ -4,7 +4,7 @@
 
 A next-generation MUN hosting software.
 
-## 下载
+## 主页
 [Download](https://jiejiss.xyz/cle)
 
 ## 开发
