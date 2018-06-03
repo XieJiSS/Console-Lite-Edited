@@ -1,7 +1,12 @@
-sudo: false
-os:
-- linux
-- osx
+matrix:
+  include:
+  - os: osx
+    osx_image: xcode9.3
+    language: node_js
+    node_js: '6'
+    env:
+    - ELECTRON_CACHE=$HOME/.cache/electron
+    - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 addons:
   apt:
     packages:
@@ -9,21 +14,40 @@ addons:
 install:
 - export CXX="clang++"
 - npm install
-language: node_js
-node_js:
-- '6'
+cache:
+  directories:
+  - node_modules
+  - "$HOME/.cache/electron"
+  - "$HOME/.cache/electron-builder"
+before_install:
+- |
+  if [ "$TRAVIS_OS_NAME" == "osx" ]; then
+    mkdir -p /tmp/git-lfs && curl -L https://github.com/github/git-lfs/releases/download/v2.3.1/git-lfs-$([ "$TRAVIS_OS_NAME" == "linux" ] && echo "linux" || echo "darwin")-amd64-2.3.1.tar.gz | tar -xz -C /tmp/git-lfs --strip-components 1
+    export PATH="/tmp/git-lfs:$PATH"
+    brew install yarn
+  fi
+before_script:
+- git lfs pull
 script:
 - npm run rebuildNative
 - npm test
+- yarn global add electron@1.4.3 && yarn global add electron-builder@20.15.1 && yarn install --pure-lockfile && yarn build
+before_cache:
+- rm -rf $HOME/.cache/electron-builder/wine
+branches:
+  except:
+  - "/^v\\d+\\.\\d+\\.\\d+$/"
+before_deploy:
+- git tag $(git log -n 1 --pretty=format:"%h")
 deploy:
-- provider: script
+  provider: releases
+  api_key:
+    secure: U1veujpvfafAmw3dbkwqwibMFPpB/v7xybzw6QDR3TJZyviUWMKLvrSVYfJmQ9bk3Z60DgrsLDepNukx8EW7d1GKyy/5Ux7OnTZVtLuBv7MUS45tk5Ii0kBNGZU4Ma0U02S7o2aFvyWtKyf6pFUdcpNg+DkJPOgvT1LYpHeamTiQ3/h8W6Md3UFildBBTULzx153NXcus6Ns+PZZPZTfXOwUB2Y7x95X8H1JgRi4x21pUJZwI8OC62LY+2csN3eU4Saz6QVCNjh/apquANbg9LiPibCw0WWHcHGUw574fl3U/n//p8Jdvs7CJTxXMvxSHAuyG9NbvNG/XlzERgqgXVtozk6yuXBuIjdciaH0rrMINZlVp7y4mC8SlGIZY6dauRfr1PV24zlgRiqiLNTjii92YXXz89pOH2Jbk228XfkyrF1Oxy9gdSTXZReqVSMyUEWa/lGNNWZ6Bufr7Svewn5xklrLjkLXhmHhdBvCXuqIlYU0P2lNtrpv+/7AgxoELd8Pe86fG8tGbyrd+0F/1zYAai/ci4Fd++gZkuph4oBuHZTx5y1QU6Uz1HOaoCxFhsxUdDdxrcb9YIuoZ6cc/DycZ8MydTPnRP6gdXLBnWePCuGzCZlaW2L0H1cIPCt39EMalN6O5YAgPIgxtqYbwVq2U5cOMT5CAoHPrQ5KGU4=
+  file: dist/*
+  file_glob: true
   skip_cleanup: true
-  script: node bin/deploy-travis.js
   on:
-    repo: CircuitCoder/Console-Lite
-    all_branches: true
-    node: '6'
-env:
-  global:
-  - secure: "RhVmrhuQwzZzdHBH5qogtEijFVtSARPOqY9o8a7K4MCi19OOhyGTWPgjWistecQIeDcFZtt6GFEWPR+NEcvJJABcZYGaxdisM+Cuh65GDBXW8EU8HHlZ9pkME+1K0y1hicyzi/v5W4GriAXFDBZCIDxISTFvJYSwlYbRlksI+zTNJpwovmxtD3oeGzdqDz2Jgty80e5LsAtoDBbwQQWypJMq+SYjt8WyBn53DfnSg8z8GbX1BVqs9W6BcdO5V6WvnuSU0E61GCwFsu6dYPKzsms39FJk271Q6pSleqkSdyT0FRZkVUURBcEC6ucNe6//5DdozbzethidcqcvsxM3Z+bjkTUk+bmPg2Av0m02xlEVQydwoxs4Xf1H2vSMwvhNRSJ8qDHKAADFmmdDTvc8q+2Isoao7ZesmwfkVC8RQNjS0Mx84wnDNvqt+M1PbVdyAeKNDjZDABbkS8BufSlCo0N0tyTV/bCE55WDJaSJ+LPDF27s04AbVCBRwkjZBDF6CT2EQqoOBq3RP3EhMaSXfpyYhK2wIx9cbxVOjI/AjijyG0rIoEaUKY1HqCV+nMBUQdAZw8QmP9Yrj51zTpLeY7iYek1VNNJmOWZgqiu1N8f6Aw2YqCadNIJqVGUDWPdsaCy/GZRg4F1j9VB5ZA2cROUYG6kd20n5AKlRjPumpJA="
-  - secure: "OEcRx/OCv1aA73m4rcuJ/cOu61/INr830H/9MZ3W7mn7B/jyBY3zc0g4b90C/P24z+vZKdeeBn9mCIQKlb2Z1n8tkittYCLi3dMy/WTVEFTFNV2nQc05FJwZL8nOvYCWvAChT+EtF/RU0mbIEoeWq5sUCdWza306gAjOlmLWKo225K3MvdwuiAFesdb3lJWTlZ0m8Ccoy+gwqsXa18KazAFLyD22WPK51f6pDjJ30lEdV4qzVU8eaZy4egkJVbgaL8ikvFhgAhNSsYqngu7CBTtO1XvidO5G2Z4XJ2oArfWL5b0o1MXk+BMRqqekJY3lytqYx3jE45AnYVG8/5xnhJFkbPv5Pwzp0/qMuwAZC9gbV1LX+pT/Omd6GbZwXgQqFu/oNMd+5BNqnz8nzlFXcWUa6pRjKvUENLLz66bw/mDe41HV/dM+4OFPQtaJbjwSSBx4j8GRJ2+rCNnsjMmk65pIVo2YNmwZC39xXCSOboUpK0Vz+L+CDBjWU2kxv1qJju8DU+nMhuFj1IMYx9Mgm/GimLFw2szZMxq+LxTusFr/rm0xPowtUVFtflRMTX6qQ7NVXor/6JqrLKYAhasJAc0MLizQkOxsjkECt8Ik5V0ClmdggVrXD72drNu7QKRMHBehRu6/1UZDSNM2VNL9lmbqQJyDG5d1j/yayUoKuUw="
+    repo: JieJiSS/Console-Lite
+    tags: true
+after_deploy:
+- ls dist/

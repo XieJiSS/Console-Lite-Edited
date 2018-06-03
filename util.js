@@ -237,6 +237,8 @@ function _verCmp(a, b) {
 
 function checkForUpdate() {
   return new Promise((resolve, reject) => {
+    resolve([false, null]);
+
     if(!_mc) _mc = new Minio({
       endPoint: 'store.bjmun.org',
       secure: true,
@@ -248,12 +250,12 @@ function checkForUpdate() {
       const info = buf.toString('utf-8').split('\n')[0]
         .match(/^Console-Lite-v(\d+)\.(\d+)\.(\d+)-([^-]*)-([^-\.]*)(-nofont)?(.*)$/);
 
-      if(!info) return void resolve(false);
+      if(!info) return void resolve([false, null]);
 
       const [, ver1, ver2, ver3, platform, arch, font, tail] = info;
 
       // eslint-disable-next-line prefer-template
-      const re = /^Console-Lite-v(\d+)\.(\d+)\.(\d+)-/.source
+      const re = /^Console-Lite-Edited-v(\d+)\.(\d+)\.(\d+)-/.source
                  + platform + '-' + arch + (font === undefined ? '' : font) + tail + '$';
 
       let newest = [ver1, ver2, ver3];

@@ -1,4 +1,6 @@
+/* eslint-disable spaced-comment */
 /// <reference path="typings/electron.d.ts" />
+/* eslint-enable spaced-comment */
 
 const electron = require('electron');
 const { powerSaveBlocker, ipcMain, app, protocol, globalShortcut, BrowserWindow } = electron;
@@ -8,11 +10,11 @@ const fs = require('fs');
 const fstream = require('fstream');
 const rimraf = require('rimraf');
 
-const getIpv4 = require('./packages/ipv4/index')
+const getIpv4 = require('./packages/ipv4/index');
 const server = require('./server/server');
 const util = require('./util');
 
-const name = 'Console Lite';
+const name = 'Console Lite Edited';
 
 let PSB_ID;
 let IPV4 = null;
@@ -64,10 +66,9 @@ function initController() {
     powerSaveBlocker.stop(PSB_ID);
     PSB_ID = undefined;
   }
-  PSB_ID = powerSaveBlocker.start("prevent-display-sleep");
-  if(!powerSaveBlocker.isStarted(PSB_ID)) {
-    console.log("Failed to start powerSafeBlocker");
-  }
+  PSB_ID = powerSaveBlocker.start('prevent-display-sleep');
+  if(!powerSaveBlocker.isStarted(PSB_ID)) console.log('Failed to start powerSafeBlocker');
+
   controller.on('closed', () => {
     controller = null;
 
@@ -80,7 +81,7 @@ function initProjector() {
   // Ensures that previous windows are closed
   if(projector) projector.close();
 
-  const { screen } = require('electron');
+  const { screen } = require('electron'); // eslint-disable-line
   const displays = screen.getAllDisplays();
   let external;
 
@@ -89,13 +90,12 @@ function initProjector() {
     projectorOpt.y = 0;
     projector = new BrowserWindow(projectorOpt);
   } else {
-    for(let i = 0; i < displays.length; i++) {
-      if(displays[i].bounds.x != 0 || displays[i].bounds.y != 0) {
+    for(let i = 0; i < displays.length; i++)
+      if(displays[i].bounds.x !== 0 || displays[i].bounds.y !== 0) {
         external = displays[i];
         console.log(`[Proj] external display found, id=${external.id}`);
         break;
       }
-    }
     if(external) {
       projectorOpt.x = external.bounds.x;
       projectorOpt.y = external.bounds.y;
@@ -105,7 +105,7 @@ function initProjector() {
 
   projector.hide();
 
-  projector.webContents.on('dom-ready', ev => {
+  projector.webContents.on('dom-ready', () => {
     // projector.webContents.openDevTools();
     projector.show();
     if(external) {
@@ -184,7 +184,11 @@ let shutdown;
 
 ipcMain.on('startServer', (event) => {
   if(serverStarted) {
-    event.sender.send('serverCallback', { url: `http://${ IPV4 || 'localhost' }:3066`, passkey, idkey });
+    event.sender.send('serverCallback', {
+      url: `http://${IPV4 || 'localhost'}:3066`,
+      passkey,
+      idkey,
+    });
     return;
   }
 
@@ -199,7 +203,11 @@ ipcMain.on('startServer', (event) => {
     passkey = pk;
     idkey = ik;
     shutdown = sd;
-    event.sender.send('serverCallback', { url: `http://${ IPV4 || 'localhost' }:3066`, passkey, idkey });
+    event.sender.send('serverCallback', {
+      url: `http://${IPV4 || 'localhost'}:3066`,
+      passkey,
+      idkey,
+    });
   });
 });
 

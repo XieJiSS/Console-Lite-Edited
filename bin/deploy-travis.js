@@ -62,7 +62,7 @@ const mainTasks = [
               fs.renameSync(p, targetdir);
             }
 
-            const fname = `Console-Lite-${tag}-${os.platform()}-${os.arch()}.tar.gz`;
+            const fname = `Console-Lite-Edited-${tag}-${os.platform()}-${os.arch()}.tar.gz`;
             fs.writeFileSync(path.join(getAppDir(targetdir), 'VERSION'), fname);
 
             ob.next(`Writing to: ${fname}`);
@@ -86,7 +86,7 @@ const mainTasks = [
         }, {
           title: 'Creating archive without fonts',
           task: () => new Observable(ob => {
-            const fname = `Console-Lite-${tag}-${os.platform()}-${os.arch()}-nofont.tar.gz`;
+            const fname = `Console-Lite-Edited-${tag}-${os.platform()}-${os.arch()}-nofont.tar.gz`;
             fs.writeFileSync(path.join(getAppDir(targetdir), 'VERSION'), fname);
 
             ob.next(`Writing to: ${fname}`);
