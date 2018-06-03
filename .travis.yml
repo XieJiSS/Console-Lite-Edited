@@ -49,6 +49,5 @@ deploy:
   skip_cleanup: true
   on:
     repo: JieJiSS/Console-Lite
-    tags: true
 after_deploy:
 - ls dist/
