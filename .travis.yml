@@ -30,15 +30,12 @@ before_script:
 - git lfs pull
 script:
 - npm run rebuildNative
-- npm test
 - yarn global add electron@1.4.3 && yarn global add electron-builder@20.15.1 && yarn install --pure-lockfile && yarn build
 before_cache:
 - rm -rf $HOME/.cache/electron-builder/wine
 branches:
   except:
   - "/^v\\d+\\.\\d+\\.\\d+$/"
-before_deploy:
-- git tag $(git log -n 1 --pretty=format:"%h")
 deploy:
   provider: releases
   api_key:
