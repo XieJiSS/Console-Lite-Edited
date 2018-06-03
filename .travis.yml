@@ -38,6 +38,8 @@ before_cache:
 branches:
   except:
   - "/^v\\d+\\.\\d+\\.\\d+$/"
+before_deploy:
+  - git tag $(git log -n 1 --pretty=format:"%h")
 deploy:
   provider: releases
   api_key:
