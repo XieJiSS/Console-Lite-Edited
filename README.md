@@ -1,4 +1,6 @@
-# Console Lite
+# Console Lite Edited
+
+[![Build Status](https://travis-ci.org/JieJiSS/Console-Lite.svg?branch=master)](https://travis-ci.org/JieJiSS/Console-Lite)
 
 A next-generation MUN hosting software.
 
