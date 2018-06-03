@@ -1,6 +1,8 @@
 const levelup = require('levelup');
 const crypto = require('crypto');
 const path = require('path');
+const fs = require('fs');
+const { app } = require('electron');
 
 const Conference = require('./conference');
 
@@ -8,12 +10,26 @@ const levelopt = {
   valueEncoding: 'json',
 };
 
+let DB_PATH = __dirname;
+if(process.platform === 'darwin')
+  DB_PATH = app.getPath('userData');
+
+try {
+  fs.mkdirSync(DB_PATH);
+} catch(err) { }
+try {
+  fs.mkdirSync(`${DB_PATH}/storage`);
+} catch(err) {}
+
 let main;
 const confs = new Map();
 let confList;
 
 function init(cb) {
-  main = levelup(path.resolve(__dirname, 'storage', 'main.db'), levelopt, (err) => {
+  try {
+    fs.mkdirSync(path.join(DB_PATH, 'storage', 'main.db'));
+  } catch(err) {}
+  main = levelup(path.resolve(DB_PATH, 'storage', 'main.db'), levelopt, (err) => {
     if(err) return void cb(err);
 
     main.get('list', (err, list) => {
@@ -25,8 +41,11 @@ function init(cb) {
       else {
         confList = list;
         for(const conf of list) {
-          const db = levelup(`${__dirname}/storage/${conf.id}.db`, levelopt);
-          const filedir = `${__dirname}/storage/${conf.id}.files`;
+          const db = levelup(`${DB_PATH}/storage/${conf.id}.db`, levelopt);
+          const filedir = `${DB_PATH}/storage/${conf.id}.files`;
+          try {
+            fs.mkdirSync(filedir);
+          } catch(err) {}
           confs.set(conf.id, new Conference(conf.name, db, filedir));
         }
         return void cb(null);
@@ -47,8 +66,11 @@ function shutdown(cb) {
 function add(name, cb) {
   const id = crypto.randomBytes(16).toString('hex');
 
-  const db = levelup(`${__dirname}/storage/${id}.db`, levelopt);
-  const filedir = `${__dirname}/storage/${id}.files`;
+  const db = levelup(`${DB_PATH}/storage/${id}.db`, levelopt);
+  const filedir = `${DB_PATH}/storage/${id}.files`;
+  try {
+    fs.mkdirSync(filedir);
+  } catch(err) {}
   const instance = new Conference(name, db, filedir);
   instance.setup((err) => {
     if(err) return void cb(err);

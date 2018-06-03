@@ -130,7 +130,12 @@ function setupExportHandler() {
   protocol.registerBufferProtocol('clexport', (request, callback) => {
     if(this.serverStarted) return void callback({ error: 'Server is running' });
 
-    const dir = path.join(__dirname, 'server', 'backend', 'storage');
+    let DB_PATH = path.join(__dirname, 'server', 'backend');
+    if(process.platform === 'darwin')
+      DB_PATH = app.getPath('userData');
+
+    const dir = path.join(DB_PATH, 'storage');
+    // const dir = path.join(__dirname, 'server', 'backend', 'storage');
 
     const buffers = [];
     fstream.Reader({
@@ -144,7 +149,7 @@ function setupExportHandler() {
     .on('end', () => {
       callback(Buffer.concat(buffers));
     })
-    .on('error', err => callback({ error: err }));
+    .on('error', err => callback({ error: err.toString() }));
   });
 }
 
@@ -194,6 +199,7 @@ ipcMain.on('startServer', (event) => {
 
   server((err, pk, ik, sd) => {
     if(err) {
+      // fs.writeFileSync(path.join(__dirname, 'log.txt'), err);
       console.error(err);
       event.sender.send('serverCallback', { error: err });
       return;
@@ -244,7 +250,15 @@ ipcMain.on('checkForUpdate', (ev) => {
 });
 
 ipcMain.on('doImport', (ev, data) => {
-  const targetDir = path.join(__dirname, 'server', 'backend', 'storage');
+  let DB_PATH = path.join(__dirname, 'server', 'backend');
+  if(process.platform === 'darwin')
+    DB_PATH = app.getPath('userData');
+
+  const targetDir = path.join(DB_PATH, 'storage');
+
+  try {
+    fs.mkdirSync(targetDir);
+  } catch(err) {}
 
   rimraf(path.join(targetDir, '*'), (err) => {
     if(err) return void ev.sender.send('importCb', err);

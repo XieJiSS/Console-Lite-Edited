@@ -20,7 +20,6 @@ module.exports = (cb, port = 3066) => {
       backend.shutdown();
       return void cb(err);
     }
-
     console.log('Backend initialization completed');
 
     if(process.platform === 'darwin') {
