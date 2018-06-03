@@ -21,6 +21,8 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "electron": "1.4.3",
+    "electron-builder": "^20.15.1",
     "electron-rebuild": "^1.2.0",
     "eslint": "^3.3.1",
     "eslint-config-airbnb-base": "^5.0.3",
