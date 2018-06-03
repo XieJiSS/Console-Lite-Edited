@@ -31,7 +31,9 @@ before_install:
 before_script:
 - git lfs pull
 script:
+- npm install electron-rebuild --save-dev
 - npm run rebuildNative
+- npm prune --production
 - npm build
 before_cache:
 - rm -rf $HOME/.cache/electron-builder/wine
