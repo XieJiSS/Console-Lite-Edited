@@ -23,8 +23,13 @@ module.exports = (cb, port = 3066) => {
 
     console.log('Backend initialization completed');
 
-    const passkey = config.password || crypto.randomBytes(4).toString('hex');
-    const idkey = config.id || crypto.randomBytes(4).toString('hex').toUpperCase();
+    if(process.platform === 'darwin') {
+      config.passkey = crypto.randomBytes(4).toString('hex');
+      config.id = crypto.randomBytes(4).toString('hex').toUpperCase();
+    }
+
+    const passkey = config.password;
+    const idkey = config.id;
 
     // Setup sockets
     const server = http.createServer((req, res) => {

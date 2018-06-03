@@ -13,7 +13,9 @@
     "clean": "rm -rf Console-Lite-* Console\\ Lite*",
     "pack": "node bin/pack.js",
     "rebuildNative": "node bin/rebuild.js",
-    "build": "electron-builder --mac"
+    "beforeBuild": "npm i && npm i electron-packager --save-dev",
+    "build": "electron-packager . 'Console Lite Edited' --platform=darwin --electron-version=1.4.3 --icon=images/icon.icns --out=dist/",
+    "afterBuild": "tar zcf dist/Console-Lite-Edited-$(git log -n 1 --pretty=format:'%h').tar.gz dist/"
   },
   "author": "Liu Xiaoyi",
   "contributors": [
@@ -21,8 +23,8 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "electron": "1.4.3",
-    "electron-builder": "^20.15.1",
+    "electron": "^1.4.3",
+    "electron-packager": "^12.1.0",
     "electron-rebuild": "^1.2.0",
     "eslint": "^3.3.1",
     "eslint-config-airbnb-base": "^5.0.3",
