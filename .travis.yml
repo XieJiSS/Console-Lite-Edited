@@ -27,9 +27,9 @@ before_install:
 before_script:
 - git lfs pull
 script:
-- npm run rebuildNative
 - npm run beforeBuild
 - npm run build
+- npm run afterBuild
 before_cache:
 - rm -rf $HOME/.cache/electron-builder/wine
 branches:
