@@ -20,3 +20,7 @@
 .seat {
   width: 200px;
 }
+
+div.seats-input-div[contenteditable="true"] {
+  font-family: Menlo, Monaco, Consolas;
+}

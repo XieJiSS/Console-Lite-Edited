@@ -2,21 +2,28 @@ const Vue = require('vue');
 const VueAnimatedList = require('vue-animated-list');
 Vue.use(VueAnimatedList);
 
-const io = require('socket.io-client/socket.io.js');
+const io = require('socket.io-client');
 const Push = require('push.js');
 const polo = require('polo');
 const path = require('path');
-const { ipcRenderer, shell } = require('electron');
+const { ipcRenderer } = require('electron');
 const { clipboard } = require('electron').remote;
 
 const GlobalConnection = require('./connection/global');
 const ConferenceConnection = require('./connection/conference');
 
 const util = require('../shared/util.js');
-const node_util = require("util");
+const nodeUtil = require('util');
+
+function stopTheWorld() { // eslint-disable-line
+  setTimeout(() => {
+    debugger; // eslint-disable-line
+  }, 800);
+}
 
 require('../shared/components/timer');
 require('../shared/components/timer-input');
+require('../shared/components/timer-input-1');
 
 let globalConn;
 let confConn;
@@ -100,7 +107,9 @@ const desc = {
 
   methods: {
     init() {
-      this.started = true;
+      setTimeout(() => { // kind of tricky...
+        this.started = true;
+      }, 0);
 
       this.projOn = ipcRenderer.sendSync('getProjector') !== null;
       this.sendToProjector({ type: 'reset' });
@@ -205,7 +214,7 @@ const desc = {
       ipcRenderer.once('serverCallback', (event, data) => {
         if(data.error) {
           alert(`启动失败! 请检查是否已经启动另一个 Console Lite 实例。\n${
-            node_util.format(data.error)
+            nodeUtil.format(data.error)
           }`);
           console.error(data);
           this.loading = false;
@@ -766,7 +775,7 @@ const desc = {
     updateListTotal(list, time) {
       try {
         this.updateTimer(list.timerTotal.id, time);
-      } catch (e) {}
+      } catch(e) {}
     },
 
     updateListCurrent(list, time) {
@@ -888,15 +897,15 @@ function setup() {
     e.stopPropagation();
   });
 
-  ipcRenderer.once('updateAvailable', (event, { detail, version }) => {
-    Push.create(`软件更新: ${version}`, {
-      body: '点击开始下载',
-      timeout: 10000,
-      onClick: () => {
-        shell.openExternal(`https://store.bjmun.org/console-lite/${detail.name}`);
-      },
-    });
-  });
+  // ipcRenderer.once('updateAvailable', (event, { detail, version }) => {
+  //   Push.create(`软件更新: ${version}`, {
+  //     body: '点击开始下载',
+  //     timeout: 10000,
+  //     onClick: () => {
+  //       shell.openExternal(`https://store.bjmun.org/console-lite/${detail.name}`);
+  //     },
+  //   });
+  // });
 
-  ipcRenderer.send('checkForUpdate');
+  // ipcRenderer.send('checkForUpdate');
 }

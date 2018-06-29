@@ -27,8 +27,8 @@ module.exports = (cb, port = 3066) => {
       config.id = crypto.randomBytes(4).toString('hex').toUpperCase();
     }
 
-    const passkey = config.password;
-    const idkey = config.id;
+    const passkey = `${config.password}_${~~(Math.random() * 10000)}`;
+    const idkey = `${config.id}-${~~(Math.random() * 10000)}`;
 
     // Setup sockets
     const server = http.createServer((req, res) => {

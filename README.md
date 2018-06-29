@@ -36,7 +36,7 @@ npm run server
 ```bash
 npm prune --producation # 删除开发依赖
 npm install electron-packager # 重新安装打包器
-npm install electron # 重新安装Electron。一些module使用了`process.EventEmitter [deprecated]`，因此可能需要手动修改。
+npm install electron # 重新安装Electron。一些module使用了`require('events').EventEmitter [deprecated]`，因此可能需要手动修改。
 npm run pack
 npm install # 重新安装开发依赖
 ```

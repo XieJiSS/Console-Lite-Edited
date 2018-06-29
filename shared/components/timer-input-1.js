@@ -1,8 +1,8 @@
 const Vue = require('vue');
 const fs = require('fs');
 
-const TimerInput = Vue.extend({
-  template: fs.readFileSync(`${__dirname}/timer-input.html`).toString('utf-8'),
+const TimerInput1 = Vue.extend({
+  template: fs.readFileSync(`${__dirname}/timer-input-1.html`).toString('utf-8'),
   props: {
     time: {
       twoWay: true,
@@ -63,6 +63,6 @@ const TimerInput = Vue.extend({
   },
 });
 
-Vue.component('timer-input', TimerInput);
+Vue.component('timer-input-1', TimerInput1);
 
-module.exports = TimerInput;
+module.exports = TimerInput1;

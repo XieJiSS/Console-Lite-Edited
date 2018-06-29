@@ -3,7 +3,10 @@
 /* eslint-enable spaced-comment */
 
 const electron = require('electron');
-const { powerSaveBlocker, ipcMain, app, protocol, globalShortcut, BrowserWindow } = electron;
+const {
+  powerSaveBlocker, ipcMain, app,
+  protocol, globalShortcut, BrowserWindow,
+} = electron;
 const path = require('path');
 const tar = require('tar');
 const fs = require('fs');
@@ -165,6 +168,13 @@ app.on('ready', () => {
     if(projector) projector.focus();
     else initProjector();
   });
+
+  globalShortcut.register('CommandOrControl+Shift+P', () => {
+    if(controller) {
+      controller.webContents.openDevTools({ mode: 'detach' });
+      controller.webContents.executeJavaScript('stopTheWorld()');
+    }
+  });
 });
 
 app.on('window-all-closed', () => {
@@ -274,4 +284,8 @@ ipcMain.on('doImport', (ev, data) => {
 
 app.on('quit', () => {
   if(serverStarted) shutdown();
+});
+
+process.on('unhandledRejection', err => {
+  console.log(err.stack);
 });

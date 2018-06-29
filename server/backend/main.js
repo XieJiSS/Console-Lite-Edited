@@ -11,8 +11,10 @@ const levelopt = {
 };
 
 let DB_PATH = __dirname;
-if(process.platform === 'darwin')
+if(process.platform === 'darwin') {
   DB_PATH = app.getPath('userData');
+  console.log('[INFO] MacOS detected, the db folder will be', DB_PATH);
+}
 
 try {
   fs.mkdirSync(DB_PATH);
