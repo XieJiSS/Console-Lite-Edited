@@ -16,9 +16,13 @@ const util = require('../shared/util.js');
 const nodeUtil = require('util');
 
 function stopTheWorld() { // eslint-disable-line
+  const pauseBtn = document.querySelector('i[title="Pause"]');
+  if(pauseBtn && pauseBtn.parentElement.style.display !== 'none')
+    pauseBtn.parentElement.click();
+
   setTimeout(() => {
     debugger; // eslint-disable-line
-  }, 800);
+  }, 500);
 }
 
 require('../shared/components/timer');
