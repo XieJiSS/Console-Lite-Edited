@@ -14,7 +14,7 @@
     "pack": "node bin/pack.js",
     "rebuildNative": "node bin/rebuild.js",
     "beforeBuild": "npm i && npm i electron-packager --save-dev && source ./predeploy.sh",
-    "build": "electron-packager . 'Console Lite Edited' --platform=darwin --electron-version=1.4.3 --icon=images/icon.icns --out=dist/",
+    "build": "electron-packager . 'Console Lite Edited' --platform=darwin --electron-version=1.8.7 --icon=images/icon.icns --out=dist/",
     "afterBuild": "tar zcf dist/Console-Lite-Edited-$(git log -n 1 --pretty=format:'%h').tar.gz dist/"
   },
   "author": "Liu Xiaoyi",
