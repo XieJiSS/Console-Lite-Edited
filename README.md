@@ -17,7 +17,7 @@ npm run rebuildNative # Rebuild native modules for Electron
 
 注意：这一步需要`Node_ABI === ELECTRON_ABI`
 
-（electron v1.4对应Node v7）
+（electron v1.8对应Node v8）
 
 启动应用：
 
