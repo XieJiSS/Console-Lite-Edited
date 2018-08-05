@@ -13,10 +13,9 @@
     "clean": "rm -rf Console-Lite-* Console\\ Lite*",
     "pack": "node bin/pack.js",
     "rebuildNative": "node bin/rebuild.js",
-    "beforeBuild": "npm i && npm i electron-packager --save-dev && source ./predeploy.sh",
-    "build": "npm run buildMac && npm run buildWin",
-    "buildMac": "electron-packager . 'Console Lite Edited' --platform=darwin --electron-version=1.8.7 --icon=images/icon.icns --out=dist/",
-    "buildWin": "electron-packager . 'Console Lite Edited' --platform=win32  --electron-version=1.8.7 --icon=images/icon.ico --out=dist/",
+    "beforeBuild": "npm i && npm i electron-packager --save-dev && npm i electron-builder --save-dev && source ./predeploy.sh",
+    "build": "npm run buildMac",
+    "buildMac": "electron-packager . 'Console Lite Edited' --arch=x64 --platform=darwin --electron-version=1.8.7 --icon=images/icon.icns --out=dist/",
     "afterBuild": "tar zcf dist/Console-Lite-Edited-$(git log -n 1 --pretty=format:'%h').tar.gz dist/"
   },
   "author": "Liu Xiaoyi",
