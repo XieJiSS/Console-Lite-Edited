@@ -23,4 +23,6 @@
 
 div.seats-input-div[contenteditable="true"] {
   font-family: Menlo, Monaco, Consolas;
+  user-modify: read-write-plaintext-only;
+  -webkit-user-modify: read-write-plaintext-only;
 }
