@@ -15,13 +15,13 @@ const SeatsView = Vue.extend({
   methods: {
     edit() {
       this.editFlag = true;
-      this.$els.seatsInput.innerHTML = this.seats ? this.seats.map(e => e.name).join('<br>') : '';
+      this.$els.seatsInput.innerHTML = this.seats ? this.seats.map(e => e.name).join('\n') : '';
     },
 
     performEditing() {
       const str = this.$els.seatsInput.innerHTML;
       const seats =
-        str.split('<br>').filter(e => e.length > 0).map(e => ({ name: e, present: false }));
+        str.split('\n').filter(e => e.length > 0).map(e => ({ name: e, present: false }));
       this.$dispatch('update-seats', seats);
       this.editFlag = false;
     },
@@ -39,7 +39,7 @@ const SeatsView = Vue.extend({
 
     sort() {
       this.$els.seatsInput.innerHTML = this.$els.seatsInput.innerHTML
-          .split('<br>')
+          .split('\n')
           .filter(e => e.length > 0)
           .map(e => ({
             original: e,
@@ -74,7 +74,7 @@ const SeatsView = Vue.extend({
             else return 0;
           })
           .map(e => e.original)
-          .join('<br>');
+          .join('\n');
     },
   },
 });
