@@ -5,6 +5,8 @@
   "description": "The next generation of MUN conference softwares",
   "main": "main.js",
   "scripts": {
+    "postMacinstall": "electron-builder install-app-deps",
+    "postWininstall": "electron-builder install-app-deps --platform=win32",
     "test": "eslint .",
     "electron": "electron",
     "start": "electron .",

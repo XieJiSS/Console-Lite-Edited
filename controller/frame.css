@@ -71,6 +71,7 @@
 }
 
 .view {
+  background-color: white;
   padding: 40px;
   position: absolute;
   top: 0;
