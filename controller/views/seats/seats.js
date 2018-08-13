@@ -19,7 +19,8 @@ const SeatsView = Vue.extend({
     },
 
     performEditing() {
-      const str = this.$els.seatsInput.innerHTML;
+      const str = this.$els.seatsInput.innerHTML
+        .replace(/<br>/g, '');
       const seats =
         str.split('\n').filter(e => e.length > 0).map(e => ({ name: e, present: false }));
       this.$dispatch('update-seats', seats);
@@ -39,6 +40,7 @@ const SeatsView = Vue.extend({
 
     sort() {
       this.$els.seatsInput.innerHTML = this.$els.seatsInput.innerHTML
+          .replace(/<br>/g, '')
           .split('\n')
           .filter(e => e.length > 0)
           .map(e => ({

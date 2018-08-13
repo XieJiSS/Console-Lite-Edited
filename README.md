@@ -4,6 +4,10 @@
 
 A next-generation MUN hosting software.
 
+## Notice
+
+@Circuit-Coder is merging this repo with CircuitCoder/Console-Lite . Soon CircuitCoder/Console-Lite will finish syncing, and this repo will be deprecated (since he has better deploying infrastructure, and I'll soon temporarily quit MUN in a year.)
+
 ## 主页
 [Download](https://jiejiss.xyz/cle)
 
