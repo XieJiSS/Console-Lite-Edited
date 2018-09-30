@@ -1,0 +1,5 @@
+ReferenceError: Another abhs.js is already running.
+    at pe.then.exists (/Users/jiejiss/Work/Code/js/abhs/abhs.js:20:27)
+ReferenceError: Another abhs.js is already running.
+    at pe.then.exists (/Users/jiejiss/Work/Code/js/abhs/abhs.js:20:27)
+    at process._tickCallback (internal/process/next_tick.js:68:7)

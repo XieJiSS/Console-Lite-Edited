@@ -27,7 +27,7 @@ module.exports = {
       },
     ],
     'import/newline-after-import': 'off',
-    'curly': ['error', 'multi'],
+    'curly': 'off',
     'no-param-reassign': 'off',
     'no-underscore-dangle': 'off',
     'no-confusing-arrow': 'off',
