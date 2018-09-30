@@ -1,7 +1,7 @@
 {
   "name": "console-next",
   "productName": "Console Lite Edited",
-  "version": "1.0.8",
+  "version": "1.1.1",
   "description": "The next generation of MUN conference softwares",
   "main": "main.js",
   "scripts": {
