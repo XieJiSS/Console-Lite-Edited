@@ -34,8 +34,8 @@ body {
 
 .layer {
   position: absolute;
-  top: 0;
-  bottom: 12.5vw;
+  top: 12.5vw;
+  bottom: 0;
   right: 0;
   left: 0;
 
@@ -46,9 +46,9 @@ body {
   bottom: 0;
 }
 
-.bottom-bar {
+.bottom-bar.not-tricky {
   position: absolute;
-  bottom: 0;
+  top: 0;
   right: 0;
   left: 0;
   height: 12.5vw;
@@ -58,6 +58,22 @@ body {
   display: flex;
   align-items: center;
   padding: 0 5vw;
+  background: white !important;
+}
+
+.bottom-bar {
+  position: absolute;
+  top: -12.5vw;
+  right: 0;
+  left: 0;
+  height: 12.5vw;
+  box-sizing: border-box;
+  border-top: rgba(0,0,0,.12) .125vw solid;
+
+  display: flex;
+  align-items: center;
+  padding: 0 5vw;
+  background: white !important;
 }
 
 .bottom-title {

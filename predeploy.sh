@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This bash script will replace `process.EventEmitter` to 
-# `require("venets").EventEmitter`in the f**k outdated `root` package.
+# `require("events").EventEmitter`in the f**k outdated `root` package.
 # Cautious: macOS only.
 # Author: JieJiSS
 
