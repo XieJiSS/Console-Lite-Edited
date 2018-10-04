@@ -5,6 +5,7 @@ const packages = fs.readdirSync(path.join(__dirname, '/node_modules'));
 
 /**
  * dfs
+ * @author JieJiSS
  * @returns {void}
  * @param {string} parents
  * @param {string[]} entries
