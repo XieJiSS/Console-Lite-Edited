@@ -22,12 +22,10 @@ module.exports = (cb, port = 3066) => {
     }
     console.log('Backend initialization completed');
 
-    if(process.platform === 'darwin') {
-      config.passkey = crypto.randomBytes(4).toString('hex');
-      config.id = crypto.randomBytes(4).toString('hex').toUpperCase();
-    }
+    config.passkey = crypto.randomBytes(2).toString('hex').toUpperCase();
+    config.id = crypto.randomBytes(4).toString('hex').toUpperCase();
 
-    const passkey = `${config.password}_${~~(Math.random() * 10000)}`;
+    const passkey = `${config.password}_${config.passkey}_${~~(Math.random() * 10000)}`;
     const idkey = `${config.id}-${~~(Math.random() * 10000)}`;
 
     // Setup sockets

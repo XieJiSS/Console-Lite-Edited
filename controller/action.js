@@ -219,7 +219,10 @@ const desc = {
         if(data.error) {
           alert(`启动失败! 请检查是否已经启动另一个 Console Lite 实例。\n${
             nodeUtil.format(data.error)
-          }`);
+          } ${process.platform === 'win32'
+                ? '同时，请确认您的Console Lite Edited是使用管理员权限运行的。'
+                : ''}`
+          );
           console.error(data);
           this.loading = false;
           return;

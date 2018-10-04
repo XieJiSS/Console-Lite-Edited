@@ -122,6 +122,8 @@ body {
     color: black;
 
     opacity: 0.3;
+    position: relative;
+    top: -3.5vw;
   }
 }
 
@@ -132,6 +134,8 @@ body {
     color: black;
 
     opacity: 0.3;
+    position: relative;
+    top: -3.5vw;
   }
 }
 

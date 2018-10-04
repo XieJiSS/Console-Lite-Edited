@@ -10,6 +10,7 @@ const {
 const path = require('path');
 const tar = require('tar');
 const fs = require('fs');
+const nutil = require('util');
 const fstream = require('fstream');
 const rimraf = require('rimraf');
 
@@ -24,6 +25,9 @@ let IPV4 = null;
 
 getIpv4().then(ip => {
   IPV4 = ip;
+}).catch((err) => {
+  console.log('[WARN] getIpv4() Rejected:', nutil.format(err));
+  IPV4 = 'localhost';
 });
 
 app.setName(name);
@@ -211,7 +215,7 @@ ipcMain.on('startServer', (event) => {
     if(err) {
       // fs.writeFileSync(path.join(__dirname, 'log.txt'), err);
       console.error(err);
-      event.sender.send('serverCallback', { error: err });
+      event.sender.send('serverCallback', { error: nutil.format(err) });
       return;
     }
 
