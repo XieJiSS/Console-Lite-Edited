@@ -1,6 +1,6 @@
 # Console Lite Edited
 
-[![Build Status](https://travis-ci.org/JieJiSS/Console-Lite.svg?branch=master&style=flat-square)](https://travis-ci.org/JieJiSS/Console-Lite) [![My Website](https://img.shields.io/badge/made%20with-%e2%9d%a4-ff69b4.svg?style=flat-square)](https://jiejiss.xyz/cle)
+[![Build Status](https://travis-ci.org/JieJiSS/Console-Lite-Edited.svg?branch=master&style=flat-square)](https://travis-ci.org/JieJiSS/Console-Lite) [![My Website](https://img.shields.io/badge/made%20with-%e2%9d%a4-ff69b4.svg?style=flat-square)](https://jiejiss.xyz/cle)
 
 A next-generation MUN hosting software.
 
