@@ -5,11 +5,11 @@
     </div>
 
     <div class="rounds-indicator">
-      <span class="rounds-current" v-if="vote.status.iteration > 0">第{{ vote.status.iteration }}轮</span>
-      <span class="rounds-current" v-else>未启动</span>
+      <span class="rounds-current" v-if="vote.status.iteration > 0">Round {{ vote.status.iteration }}</span>
+      <span class="rounds-current" v-else>Not Started</span>
       <span class="rounds-total-wrapper" v-if="vote.rounds > 0">
         <span class="rounds-separator">/</span>
-        <span class="rounds-total">共{{ vote.rounds }}轮</span>
+        <span class="rounds-total">Total Rounds: {{ vote.rounds }}</span>
       </span>
     </div>
 
@@ -22,7 +22,7 @@
       </span>
       <span class="positive-count">
         <span class="vote-indicator-hint">
-          赞成
+          Yes
         </span>
         <span class="vote-indicator-value">
           {{ positiveCount }}
@@ -30,7 +30,7 @@
       </span>
       <span class="negative-count">
         <span class="vote-indicator-hint">
-          反对
+          No
         </span>
         <span class="vote-indicator-value">
           {{ negativeCount }}
@@ -38,7 +38,7 @@
       </span>
       <span class="abstained-count">
         <span class="vote-indicator-hint">
-          弃权
+          Abstain
         </span>
         <span class="vote-indicator-value">
           {{ abstainedCount }}
@@ -46,7 +46,7 @@
       </span>
       <span class="target-count" v-if="vote.target > 0">
         <span class="vote-indicator-hint">
-          目标
+          Target
         </span>
         <span class="vote-indicator-value">
           {{ vote.target }}
@@ -54,7 +54,7 @@
       </span>
       <span class="target-count" v-if="vote.target === -1">
         <span class="vote-indicator-hint">
-          目标 - 不计弃权 2/3
+          Target - 2/3 Despite Abstain
         </span>
         <span class="vote-indicator-value">
           {{ fileTwoThird }}
@@ -66,16 +66,16 @@
       <template v-if="authorized">
         <button class="light" @click="stop()" v-if="vote.status.running">
           <i class="material-icons">done</i>
-          结束第{{ vote.status.iteration }}轮
+          End Round {{ vote.status.iteration }}
         </button>
         <template v-else>
           <button class="light" @click="start()" v-if="emptyCount === 0 || altHold">
             <i class="material-icons">play_arrow</i>
-            手动进行第{{ vote.status.iteration + 1 }}轮
+            Begin Round {{ vote.status.iteration + 1 }} Manually
           </button>
           <button class="light" @click="autoStart()" v-else>
             <i class="material-icons">play_arrow</i>
-            开始第{{ vote.status.iteration + 1 }}轮
+            Begin Round {{ vote.status.iteration + 1 }}
           </button>
         </template>
     </template>
@@ -110,7 +110,7 @@
           </div>
         </div>
         <button @click="performManipulation" class="confirmation-btn">
-          确定
+          Confirm
           <i class="material-icons">keyboard_arrow_right</i>
         </button>
         <div class="clearfix"></div>

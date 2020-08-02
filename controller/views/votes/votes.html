@@ -1,8 +1,8 @@
 <div class="view">
   <div class="view-title">
-    投票
+    Votes
     <button class="embedded" @click="add" v-if="authorized">
-      添加
+      Add
       <i class="material-icons">add</i>
     </button>
   </div>
@@ -31,7 +31,7 @@
         </div>
         <div class="vote-rounds-wrapper">
           <span class="vote-iteration" v-show="vote.status.iteration > 0">{{ vote.status.iteration }}</span>
-          <span class="vote-iteration" v-else>未启动</span>
+          <span class="vote-iteration" v-else>Not Started</span>
           <template v-if="vote.rounds > 0">
             <span class="vote-rounds-separator">/</span>
             <span class="vote-rounds">{{ vote.rounds }}</span>
@@ -39,7 +39,7 @@
         </div>
         <div class="vote-spanner"></div>
         <div class="vote-type" v-if="vote.target === -1">
-          不计弃权三分之二
+          2/3 Despite Abstain
         </div>
         <div class="vote-values">
           <span class="vote-value positive">{{ countVotes(vote, 1) }}</span>
@@ -58,10 +58,10 @@
       </div>
     </div>
     <template v-if="!searchInput">
-      <div class="empty-hint" v-if="authorized">请点击添加创建投票</div>
-      <div class="empty-hint" v-else>无投票</div>
+      <div class="empty-hint" v-if="authorized">Click "Add" to create a vote</div>
+      <div class="empty-hint" v-else>Empty</div>
     </template>
-    <div class="empty-hint" v-else>无搜索结果</div>
+    <div class="empty-hint" v-else>No search results</div>
   </div>
 
   <div class="dialog-overlap" transition="opacity" v-show="addFlag" @click="discardAddition">

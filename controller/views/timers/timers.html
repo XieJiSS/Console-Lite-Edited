@@ -1,8 +1,8 @@
 <div class="view">
   <div class="view-title">
-    计时器
+    Timers
     <button class="embedded" @click="add" v-if="authorized">
-      添加
+      Add
       <i class="material-icons">add</i>
     </button>
   </div>
@@ -43,27 +43,27 @@
       </div>
     </div>
     <template v-if="!searchInput">
-      <div class="empty-hint" v-if="authorized">请点击添加创建计时器</div>
-      <div class="empty-hint" v-else>无计时器</div>
+      <div class="empty-hint" v-if="authorized">Click "Add" to create a timer</div>
+      <div class="empty-hint" v-else>Empty</div>
     </template>
-    <div class="empty-hint" v-else>无搜索结果</div>
+    <div class="empty-hint" v-else>No search results</div>
   </div>
 
   <div class="dialog-overlap" transition="opacity" v-show="editFlag" @click="discardEdit">
     <div class="dialog" @click.stop.prevent>
       <div class="dialog-title">
-        {{ additionMode ? '创建' : '修改' }}计时器
+        {{ additionMode ? 'Create' : 'Edit' }} Timers
       </div>
       <div class="dialog-content">
         <div class="input-group">
-          <div class="hint">显示名</div>
+          <div class="hint">Display Name</div>
           <input v-model="timerName" :disabled="!additionMode">
           <div class="border-line"></div>
         </div>
-        <div class="timer-input-hint">时间</div>
+        <div class="timer-input-hint">Time Length</div>
         <timer-input :time.sync="timerValue"></timer-input>
         <button @click="performEdit" class="confirmation-btn">
-          提交
+          Submit
           <i class="material-icons">keyboard_arrow_right</i>
         </button>
         <div class="clearfix"></div>

@@ -6,7 +6,7 @@
   @drop.stop.prevent="drop">
 
   <div class="view-title">
-    文件
+    Files
   </div>
 
   <div class="view-search">
@@ -33,14 +33,14 @@
       </div>
     </div>
     <template v-if="!searchInput">
-      <div class="empty-hint" v-if="authorized">请拖拽文件至此窗口以添加文件, PDF以及图片文件可以直接预览</div>
-      <div class="empty-hint" v-else>无文件</div>
+      <div class="empty-hint" v-if="authorized">Add files by dragging them onto this window. You can preview PDF and images directly.</div>
+      <div class="empty-hint" v-else>Empty</div>
     </template>
-    <div class="empty-hint" v-else>无搜索结果</div>
+    <div class="empty-hint" v-else>No search results</div>
   </div>
 
   <div class="dnd-mask" transition="opacity" v-show="dragging">
     <i class="dnd-icon material-icons">file_upload</i>
-    <div class="dnd-hint">拖放以上传</div>
+    <div class="dnd-hint">Drag & drop to upload</div>
   </div>
 </div>

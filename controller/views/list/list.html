@@ -126,22 +126,22 @@
     <div class="list-item clickable list-seat-add" @click.stop="add" v-if="authorized">
       <div class="list-item-indicator"></div>
       <div class="list-item-content">
-        <i class="material-icons">add</i> 添加
+        <i class="material-icons">add</i> Add
       </div>
     </div>
   </div>
   <div class="dialog-overlap" transition="opacity" v-show="editTimerFlag" @click="editTimerFlag = false">
     <div class="dialog" @click.stop.prevent>
       <div class="dialog-title">
-        修改时长
+        Edit Time Length
       </div>
       <div class="dialog-content">
-        <div class="timer-input-hint">总时长 ( 0 = 不限 )</div>
+        <div class="timer-input-hint">Total Time ( 0 = Unlimited )</div>
         <timer-input :time.sync="totTime"></timer-input>
-        <div class="timer-input-hint">每名代表</div>
+        <div class="timer-input-hint">Per Delegate</div>
         <timer-input :time.sync="eachTime"></timer-input>
         <button @click="performTimerEdit" class="confirmation-btn">
-          提交
+          Submit
           <i class="material-icons">keyboard_arrow_right</i>
         </button>
         <div class="clearfix"></div>

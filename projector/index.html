@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Console Lite - 投影</title>
+    <title>Console Lite - Cast</title>
     <link rel="stylesheet" href="./style.css">
     <script src="./action.js"></script>
   </head>
@@ -25,15 +25,15 @@
           <div class="all">{{ seat }}</div>
         </div>
         <div class="counter-indicator">
-          <div class="counter-indicator-hint">简单多数</div>
+          <div class="counter-indicator-hint">Simple Majority</div>
           <div class="counter-indicator-value">{{ simpleHalfCount }}</div>
         </div>
         <div class="counter-indicator">
-          <div class="counter-indicator-hint">三分之二多数</div>
+          <div class="counter-indicator-hint">Two-thirds Majority</div>
           <div class="counter-indicator-value">{{ twoThirdCount }}</div>
         </div>
         <div class="counter-indicator">
-          <div class="counter-indicator-hint">20%数</div>
+          <div class="counter-indicator-hint">20% of the Number</div>
           <div class="counter-indicator-value">{{ twentyPercentCount }}</div>
         </div>
       </div>
@@ -68,10 +68,10 @@
           <i class="material-icons">thumbs_up_down</i><span>{{ vote.name }}</span>
         </div>
         <div class="vote-iteration" v-if="vote.status.iteration > 0">
-          第{{ vote.status.iteration }}轮
+          Round {{ vote.status.iteration }}
         </div>
         <div class="vote-iteration" v-else>
-          未启动
+          Not Started
         </div>
         <div class="vote-seats">
           <i class="material-icons">person</i>
@@ -81,7 +81,7 @@
         <div class="vote-counters">
           <div class="vote-counter vote-counter-positive">
             <span class="vote-counter-hint">
-              赞成
+              Yes
             </span>
             <span class="vote-counter-value">
               {{ positiveCount }}
@@ -89,7 +89,7 @@
           </div>
           <div class="vote-counter vote-counter-negative">
             <span class="vote-counter-hint">
-              反对
+              No
             </span>
             <span class="vote-counter-value">
               {{ negativeCount }}
@@ -97,7 +97,7 @@
           </div>
           <div class="vote-counter vote-counter-abstained">
             <span class="vote-counter-hint">
-              弃权
+              Abstain
             </span>
             <span class="vote-counter-value">
               {{ abstainedCount }}
@@ -105,7 +105,7 @@
           </div>
           <div class="vote-counter vote-counter-target" v-if="vote.target > 0">
             <span class="vote-counter-hint">
-              目标
+              Target
             </span>
             <span class="vote-counter-value">
               {{ vote.target }}
@@ -113,7 +113,7 @@
           </div>
           <div class="vote-counter vote-counter-target" v-if="vote.target === -1">
             <span class="vote-counter-hint">
-              目标
+              Target
             </span>
             <span class="vote-counter-value">
               {{ fileTwoThird }}
