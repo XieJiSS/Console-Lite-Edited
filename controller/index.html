@@ -117,7 +117,7 @@
 
     <div class="picker" transition="opacity" v-show="!frame">
       <div class="picker-content">
-        <div class="picker-title">Select your committee:</div>
+        <div class="picker-title">Select Your Committee:</div>
         <div class="selector">
           <div class="selector-item" v-for="conf of confs" @click="connectConf(conf.id, conf.name)">
             {{ conf.name }}
@@ -138,10 +138,10 @@
           Edited & Translated by JieJiSS. Loading...
         </div>
         <div class="selector-item" @click="connectBackend">
-          <i class="material-icons">settings_ethernet</i>Connect to an online session
+          <i class="material-icons">settings_ethernet</i>Connect to an Online Session
         </div>
         <div class="selector-item" @click="createBackend">
-          <i class="material-icons">wifi_tethering</i>Create a session
+          <i class="material-icons">wifi_tethering</i>Create a Session
         </div>
       </div>
     </div>
@@ -151,7 +151,7 @@
     <div class="dialog-overlap" transition="opacity" v-show="createConfFlag" @click="discardConfCreation">
       <div class="dialog" @click.stop.prevent>
         <div class="dialog-title">
-          Create a committee
+          Create a Committee
         </div>
         <div class="dialog-content">
           <div class="input-group">
