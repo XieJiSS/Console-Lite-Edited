@@ -50,7 +50,7 @@
     "polo": "^0.8.1",
     "push.js": "0.0.11",
     "rimraf": "^2.6.2",
-    "socket.io": "^1.7.4",
+    "socket.io": "^2.4.0",
     "socket.io-client": "^1.7.4",
     "tar": "^2.2.1",
     "vue": "^1.0.26",
